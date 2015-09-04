@@ -46,6 +46,18 @@ def digits(num)
 	end
 end
 
+def base10_to_int(digits_array, base)
+	if digits_array.empty?
+		0
+	else
+		digits_array.last + base * base10_to_int(digits_array[0..-2], base)
+	end
+end
+
+def reverse_int(n)
+	base10_to_int(digits(n).reverse, 10)
+end
+
 def digits_sum(num)
 	sum(digits(num))
 end
