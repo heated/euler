@@ -21,8 +21,8 @@ int gcd(int a, int b) {
 }
 
 int main(void) {
-  int MAX = 4;
-  bool latice_triangle[MAX + 1][MAX + 1];
+  int MAX = 100;
+  int latice_triangle[MAX + 1][MAX + 1];
   int total = 0;
 
   for (int x = 1; x <= MAX; x++) {
