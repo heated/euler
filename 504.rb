@@ -1,6 +1,6 @@
 load 'euler.rb'
 
-# runs in 60 seconds
+# runs in 80 seconds
 # given x and y intercepts for a line, how many lattice points are there under the line?
 # 1 < x < y < 100
 # for each column: find greatest n such that -n * x / y + y > 0
@@ -13,7 +13,7 @@ end
 max = 100
 total = 0
 
-latice_triangles = Array.new(max + 1) { Array.new() }
+latice_triangles = Array.new(max + 1) { [] }
 
 for x in 1..max
 	for y in 1..max
@@ -21,15 +21,13 @@ for x in 1..max
 	end
 end
 
-
 for a in 1..max
 	for b in 1..max
 		for c in 1..max
-			first_half = -3 + a + b + c +
-				latice_triangles[a][b] +
-				latice_triangles[b][c]
 			for d in 1..max
-				total_latice_points = first_half + d +
+				total_latice_points = -3 + a + b + c + d +
+					latice_triangles[a][b] +
+					latice_triangles[b][c] +
 					latice_triangles[c][d] +
 					latice_triangles[d][a]
 
@@ -42,7 +40,3 @@ for a in 1..max
 end
 
 p total
-
-# .
-# .   .
-# . . . . .
