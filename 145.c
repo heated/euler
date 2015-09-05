@@ -16,7 +16,7 @@ bool odd_digits(int n) {
 }
 
 int main(void) {
-  int MAX = 1e9;
+  int MAX = 1e8;
   int count = 0;
   int* reverse = malloc(MAX * sizeof(int));
   int* magnitude = malloc(MAX / 10 * sizeof(int));
