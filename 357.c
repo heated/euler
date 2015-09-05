@@ -2,15 +2,16 @@
 #include <stdbool.h>
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 
 int main(void) {
   int MAX = 1e8;
 
   bool* prime = malloc(MAX * sizeof(bool));
+  memset(prime, true, sizeof(bool) * MAX);
 
-  for (int i = 0; i < MAX; i++) {
-    prime[i] = i > 1;
-  }
+  prime[0] = false;
+  prime[1] = false;
 
   for (int i = 2; i < sqrt(MAX); i++) {
     if (prime[i]) {
