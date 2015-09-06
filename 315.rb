@@ -21,18 +21,17 @@ layout = [
 	[1, 1, 1, 1, 0, 1, 1]
 ]
 
-diff = Array.new(10) { [] }
+diff = Array.new(10) { Array.new(10, 0) }
 
 for i in 0..9
 	for j in 0..9
-		diff[i][j] = 0
 		for k in 0..6
 			diff[i][j] += 2 * layout[i][k] * layout[j][k]
 		end
 	end
 end
 
-primes = primes_under(2e7).select { |n| n > 1e7 }
+primes = primes_under(2e6).select { |n| n > 1e6 }
 power_cost_diff = 0
 
 primes.each do |p|
