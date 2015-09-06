@@ -136,3 +136,11 @@ end
 def factors(n)
 	prime_factorization_to_factors(run_length_prime_factorization(n))
 end
+
+def factorial(n)
+	if n == 0
+		1
+	else
+		n * factorial(n - 1)
+	end
+end
