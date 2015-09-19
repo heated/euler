@@ -31,18 +31,18 @@ def solve(puzzle, empty_spots)
 	end
 end
 
-def solve_sudoku(puzzle)
+def zero_positions(puzzle)
 	empty_spots = []
 	9.times do |i|
 		9.times do |j|
-			if puzzle[i][j] == 0
-				empty_spots << [i, j]
-			end
+			empty_spots << [j, i] if puzzle[j][i] == 0
 		end
 	end
+	empty_spots
+end
 
-	solve(puzzle, empty_spots)
-	puzzle
+def solve_sudoku(puzzle)
+	solve(puzzle, zero_positions(puzzle))
 end
 
 def valid_move(puzzle, x, y, n)
