@@ -16,16 +16,15 @@ def solve(puzzle, empty_spots)
 	if empty_spots.empty?
 		true
 	else
-		x, y = empty_spots.first
-		remaining_empty_spots = empty_spots.drop(1)
+		sorted_spots = sort_spots(puzzle, empty_spots)
+		x, y = sorted_spots.first
+		remaining_empty_spots = sorted_spots.drop(1)
 
-		(1..9).each do |n|
-			if valid_move(puzzle, x, y, n)
-				puzzle[x][y] = n
-				return true if solve(puzzle, remaining_empty_spots)
-				puzzle[x][y] = 0
-			end
+		valid_moves(puzzle, x, y).each do |n|
+			puzzle[x][y] = n
+			return true if solve(puzzle, remaining_empty_spots)
 		end
+		puzzle[x][y] = 0
 
 		false
 	end
@@ -35,21 +34,28 @@ def zero_positions(puzzle)
 	empty_spots = []
 	9.times do |i|
 		9.times do |j|
-			empty_spots << [j, i] if puzzle[j][i] == 0
+			empty_spots << [i, j] if puzzle[i][j] == 0
 		end
 	end
 	empty_spots
+end
+
+def sort_spots(puzzle, empty_spots)
+	empty_spots.sort_by do |pos|
+		x, y = pos
+		valid_moves(puzzle, x, y).size
+	end
 end
 
 def solve_sudoku(puzzle)
 	solve(puzzle, zero_positions(puzzle))
 end
 
-def valid_move(puzzle, x, y, n)
-	return false if puzzle[x].include?(n)
-	
+def valid_moves(puzzle, x, y)
+	seen = []
 	9.times do |i|
-		return false if puzzle[i][y] == n
+		seen[puzzle[x][i]] = true
+		seen[puzzle[i][y]] = true
 	end
 
 	a = x / 3 * 3
@@ -57,13 +63,12 @@ def valid_move(puzzle, x, y, n)
 
 	3.times do |i|
 		3.times do |j|
-			return false if puzzle[a + i][b + j] == n
+			seen[puzzle[a + i][b + j]] = true
 		end
 	end
 
-	true
+	(1..9).select{ |n| !seen[n] }
 end
-
 
 answers = sudokus.map do |puzzle|
 	solve_sudoku(puzzle)
