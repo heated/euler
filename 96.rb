@@ -6,12 +6,6 @@ sudokus = input.map do |puzzle|
 	puzzle.map { |line| line.chars.map(&:to_i) }
 end
 
-def print_puzzle(puzzle)
-	puzzle.each do |row|
-		puts row.join.gsub(/0/, ' ')
-	end
-end
-
 def solve(puzzle, empty_spots)
 	if empty_spots.empty?
 		true
